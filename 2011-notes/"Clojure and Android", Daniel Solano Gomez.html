@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day2"/><meta name="created" content="2011-11-11 15:49:27 -0500"/><meta name="updated" content="2011-11-11 16:35:56 -0500"/><title>"Clojure and Android", Daniel Solano Gomez</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<b>Overview</b>
+<ul>
+<li>Android and the Dalvik VM</li>
+<li>Dynamic Compilation</li>
+<li>...</li>
+</ul>
+<b>What is Android?</b>
+<ul>
+<li>Software stack for mobile systems that provides an operating system, middleware and ...</li>
+<li>Android architecture
+<ul>
+<li>Linux kernel</li>
+<li>Android runtime</li>
+<li>Libraries</li>
+<li>...</li>
+</ul>
+</li>
+<li>The good news
+<ul>
+<li>Lots of reuse</li>
+</ul>
+</li>
+<li>The bad news
+<ul>
+<li>JavaVM != Dalvik VM</li>
+</ul>
+</li>
+</ul>
+<b>Java VM vs. Dalvik VM</b>
+<ul>
+<li>Differences
+<ul>
+<li>JVM: <br/></li>
+<li>Dalvik:
+<ul>
+<li>Not much cpu power</li>
+<li>Not quite Java SE 2</li>
+<li>.class files</li>
+<li>... see diagram</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>.class file:
+<ul>
+<li>Header</li>
+<li>Constant Pool</li>
+<li>Other data structures / ...</li>
+</ul>
+</li>
+<li>Createing a DEX
+<ul>
+<li>Multiple classes</li>
+<li>Same header</li>
+<li>Same constant pool</li>
+<li>Independent data structures</li>
+</ul>
+</li>
+<li>Installing the application
+<ul>
+<li>.dex file optimised to .odex</li>
+</ul>
+</li>
+<li>Consequences
+<ul>
+<li>Loading bytecode in android is a heavy-weight process</li>
+<li>Dynamically loading bytecode is not currently supported</li>
+</ul>
+</li>
+<li>Android Programming languages
+<ul>
+<li>Dynamic
+<ul>
+<li>...</li>
+</ul>
+</li>
+<li>Compiled<br/>
+<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<b>Dynamic Compilation on Android</b>
+<ul>
+<li>Why?
+<ul>
+<li>Makes a Clojure REPL possible</li>
+</ul>
+</li>
+<li>Review
+<ul>
+<li>(defn hello [name] (str name ...)</li>
+</ul>
+</li>
+<li>A new class Loader: DynamicClassLoader</li>
+<li>Split into
+<ul>
+<li>JVMDynamicClassLoader</li>
+<li>DalvikDynamicClassLoader -> does extra work
+<ul>
+<li>class -> ...</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Choosing the right DynamicClassLoader
+<ul>
+<li>New var: clojure.core/*vm-type*</li>
+<li>New dependency</li>
+</ul>
+</li>
+<li>Android compatibility
+<ul>
+<li>Doesn't work on versions prior to 2.1</li>
+</ul>
+</li>
+<li>Clojure compatibility
+<ul>
+<li>All Dalvik-related code is loaded reflectively<br/></li>
+<li>Some complex macros may not compile due to size limitations</li>
+<li>clojure.core/bean not available due to lack of java.beans API</li>
+</ul>
+</li>
+<li>Performance
+<ul>
+<li>Compared Clojure, Java, Scala, Ruby</li>
+<li>Package size
+<ul>
+<li>Preferably keep it low due to data network limitations and device storage</li>
+</ul>
+</li>
+<li>Startup time
+<ul>
+<li>How long do I have to wait for something to appear on the screen</li>
+</ul>
+</li>
+<li>Heap size
+<ul>
+<li>The more it takes up, the less you have for you application</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Where did all the time and space go?
+<ul>
+<li>clojure.core</li>
+<li>top space hogs
+<ul>
+<li>__init : due to meta data</li>
+<li>namespaces</li>
+<li>input and output streams</li>
+</ul>
+</li>
+<li>what about time?
+<ul>
+<li>the first time something is run, there is a 7.8s overhead</li>
+<li>most of this comes from loading the runtime
+<ul>
+<li>load clojure core namespace</li>
+<li>create user namespace</li>
+</ul>
+</li>
+<li>lots of garbage collection going on</li>
+<li>300% object churn</li>
+<li>comes from metadata</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>How do we improve performance?
+<ul>
+<li>Remove user namespace</li>
+<li>Remove metadata</li>
+<li>Transients during initialisation</li>
+<li>Serialisable clojure.core</li>
+<li>Source-level tree shaker</li>
+</ul>
+</li>
+</ul>
+<b>What would help Clojure Android development?</b>
+<ul>
+<li>Neko: The Clojure/Android toolkit
+<ul>
+<li>easy object-oriented/function impedance mismatch</li>
+<li>reduce boilerplate</li>
+<li>...</li>
+</ul>
+</li>
+<li>Development tools
+<ul>
+<li>...</li>
+</ul>
+</li>
+<li>Android development version of Clojure
+<ul>
+<li>needs to be upgraded to 1.3</li>
+<li>merge into upstream Clojure?</li>
+</ul>
+</li>
+<li>Build tools
+<ul>
+<li>Neko provides helper for Ant / Android SDK</li>
+<li>Would be nice to see more mainstream build tools</li>
+</ul>
+</li>
+<li>REPL / dynamic development tools
+<ul>
+<li>Would be good to see tools like nrepl, Emacs etc. integrated</li>
+</ul>
+</li>
+</ul>
+<b>What about ClojureScript?</b>
+<ul>
+<li>Should work for web apps</li>
+<li>Might work with mobile development frameworks</li>
+<li>For native development, constrained by availability of JavaScript engines</li>
+<li>Should work with scriptiing layer for android but doesn't provide ideal "native experience"</li>
+</ul>
+<b>Android and Clojure</b>
+<ul>
+<li>Clojure has the potential to be a first-class language for Android development</li>
+<li>Dynamic development on Android is a killer feature</li>
+<li>It needs better tool and community support</li>
+<li>Book pending: "Decaffeinated Android", building Android apps without using Java</li>
+</ul>
+<b>Questions</b>
+<ul>
+<li>Even without load time, GCs seem to be very frequent, kills UX,
+<ul>
+<li>Early Androids weren't very good</li>
+<li>The introduction of concurrent GC has helped a lot</li>
+</ul>
+</li>
+<li>Have you tried running regular Clojure with your changes to see if it improves performance?
+<ul>
+<li>Not really, however I don't think the things I've done would impact non Android development</li>
+</ul>
+</li>
+<li>Startup time is a real problem on Google App Engine, any performance improvements in startup time would be very useful in that space...
+<ul>
+<li>Probably true.</li>
+</ul>
+</li>
+<li>Right now on Android, when it builds an app, a lot of work goes on besides generating the DEX file, there's also resource generation etc. What's your build environment and how do you handle this extra stuff?
+<ul>
+<li>Modify compile target to do Clojure compilation as well as Java compilation</li>
+</ul>
+</li>
+</ul>
+</body></html>
