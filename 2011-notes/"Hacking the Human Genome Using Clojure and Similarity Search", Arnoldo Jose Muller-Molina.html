@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day1"/><meta name="created" content="2011-11-10 15:32:30 -0500"/><meta name="updated" content="2011-11-11 08:55:17 -0500"/><title>"Hacking the Human Genome Using Clojure and Similarity Search", Arnoldo Jose Muller-Molina</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<b>Background</b>
+<ul>
+<li>Working in bio-medicine and stem cell research</li>
+<li>Pioneering a process that can be applied to
+<ul>
+<li>Tissue reconstruction</li>
+<li>Organ generation</li>
+<li>Disease modelling</li>
+</ul>
+</li>
+</ul>
+<b>Problem</b>
+<ul>
+<li>Only know 10 or 20 % of transcription factors</li>
+<li>What are transcription factors?
+<ul>
+<li>Proteins that attach to DNA
+<ol>
+<li>Attach to the dna</li>
+<li>A lot of stuff happens</li>
+<li>A new transcription factor is "printed", other side effects are possible</li>
+<li>Attach again</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>TFs bind to specific DNA sequences</li>
+<li>Gene:
+<ul>
+<li>Docking region: promoter</li>
+<li>+</li>
+<li>Blueprint region: coding region</li>
+</ul>
+</li>
+<li>What is a binding motif?
+<ul>
+<li>Representation of the set of DNA subsequences a TF can bind to.</li>
+</ul>
+</li>
+<li>Genes switch on and off with TFs</li>
+<li>If you know a motif
+<ul>
+<li>You know where the TF binds</li>
+<li>You know which genes will be switched on and off</li>
+</ul>
+</li>
+<li>Want to reverse engineer ...
+<ul>
+<li>...</li>
+</ul>
+</li>
+<li>Objective
+<ul>
+<li>Find missing 2300 TF motifs</li>
+</ul>
+</li>
+</ul>
+<b>Encrypted Message</b>
+<ul>
+<li>Statistically analyse message and apply know facts to deduce message
+<ul>
+<li>e.g., the in English</li>
+</ul>
+</li>
+</ul>
+<b>Motif finding problem</b><br/>
+<ul>
+<li>Difficult<br/>
+<ul>
+<li>10% of dictionary available</li>
+<li>No grammar</li>
+<li>Only some of the message is useful</li>
+</ul>
+</li>
+<li>From ~2 billion DNA windows of 4 to 24 characters
+<ol>
+<li>...</li>
+<li>...</li>
+</ol>
+</li>
+<li>Search DNA to find DNA 'words'</li>
+</ul>
+<b>Similarity Search Definition</b>
+<ul>
+<li>Given a distance function:
+<ul>
+<li>(defn f [a b] "Compute similarity of a and b." ...)</li>
+</ul>
+</li>
+<li>Find the closes elements to a query based on f</li>
+<li>e.g., 
+<ul>
+<li>Hamming distance</li>
+</ul>
+</li>
+</ul>
+<b>DNA Processing</b><br/>
+<ul>
+<li>10 million objects:
+<ul>
+<li>27500 ms => 15 ms with an appropriate data structure in Clojure</li>
+</ul>
+</li>
+<li>Scroll a window across a string of DNA and compare each window snapshot against known DNA sequences for different species</li>
+<li>Extract 'words' from the DNA sequence</li>
+<li>Process:
+<ol>
+<li>...</li>
+<li>Refine ...</li>
+<li>Filter clusters by projection </li>
+<li>Rank predictions</li>
+<li>Post processing</li>
+</ol>
+</li>
+</ul>
+<b>Where does Clojure come in?</b>
+<ul>
+<li>Thoughts on Clojure
+<ul>
+<li>Processing/transforming large files is easy -> partition-by</li>
+<li>Like a 'think laboratory'</li>
+<li>Lisp + JVM is a brilliant and powerful combination
+<ul>
+<li>Expressive</li>
+<li>JVM environment and libraries</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data Processing</li>
+</ul>
+<b>Conclusions</b>
+<ul>
+<li>Discovered part of the genomic code with
+<ul>
+<li>Clojure + Similarity Search</li>
+<li>...</li>
+</ul>
+</li>
+<li>Biology is complex
+<ul>
+<li>Biology easily ...</li>
+</ul>
+</li>
+</ul>
+<b>Questions</b>
+<ul>
+<li>What did you wish you had in the language?
+<ul>
+<li>Error messages were a little difficult to understand</li>
+<li>Now use {:pre ...} and {:post ...} to help with debugging</li>
+</ul>
+</li>
+</ul>
+</body></html>

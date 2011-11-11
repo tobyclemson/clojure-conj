@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day2"/><meta name="created" content="2011-11-11 13:44:35 -0500"/><meta name="updated" content="2011-11-11 14:26:51 -0500"/><title>"Logs as Data", Mark McGranaghan</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<b>Background</b>
+<ul>
+<li>Everything is data!
+<ul>
+<li>Code as data</li>
+<li>HTTP requests as data</li>
+<li>Html markup as data</li>
+<li>Exceptions as data</li>
+<li>SQL queries as data</li>
+<li>CLI options as data</li>
+<li>Decision trees as data</li>
+<li>Build spec as data</li>
+<li>Cloud deploys as data</li>
+</ul>
+</li>
+</ul>
+<b>Logs as data?</b><br/>
+<ul>
+<li>Possible power vs. current power -> big gap</li>
+<li>Data via simple abstractions with a general library</li>
+</ul>
+<b>Data as the fundamental unit</b>
+<ul>
+<li>Maps!</li>
+<li>Avoid hiding data in micro interfaces which prevent easy manipulation</li>
+<li>Use simple abstractions instead which are implemented by data dtypes<br/>
+<ul>
+<li>map, seq, fn</li>
+</ul>
+</li>
+<li>General library
+<ul>
+<li>(->> foods (filter :hot?) (sort-by :cost) (...))</li>
+<li>(useful.find-first tasty? foods) ;; third party functions easily usable</li>
+</ul>
+</li>
+</ul>
+<b>Logs</b>
+<ul>
+<li>Simple abstractions?
+<ul>
+<li>XML log4j configuration? No!</li>
+<li>Data selection</li>
+<li>Formatting</li>
+<li>Interfaces</li>
+</ul>
+</li>
+<li>General library?
+<ul>
+<li>No, primitives are wrong</li>
+</ul>
+</li>
+<li>Get very complete libraries that miss the point of generality
+<ul>
+<li>org.apache.log4j.LogRecordFilter</li>
+</ul>
+</li>
+<li>Unix
+<ul>
+<li>grep / awk / sort / head</li>
+<li>Useful stuff!</li>
+</ul>
+</li>
+<li>Logging almost synonymous with strings and usually physical files on disks</li>
+<li>Logging is a record of what's going on in your application</li>
+<li>Better model -> events
+<ul>
+<li>stream of everything that is happening</li>
+<li>record of everything that ever happened</li>
+<li>extremely general!</li>
+</ul>
+</li>
+<li>API: (emit &lt;event>)<br/>
+<ul>
+<li>e.g., 
+<ul>
+<li>(emit<br/>
+    (:level "info"<br/>
+     :viewing true<br/>
+     :user_id 24<br/>
+     :path "/home"))</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Library: map / fn / seq*
+<ul>
+<li>e.g., 
+<ul>
+<li>(->> events<br/>
+    (filter :viewing)<br/>
+    (count-by some-fn)<br/>
+    (timechart))<br/></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Log lines -> events</li>
+<li>Strings -> maps</li>
+<li>Files -> streams</li>
+<li>Log crunching -> event processing</li>
+<li>Flow:
+<ul>
+<li>Emitters -> IA (Interfaces / Aggregators) -> Consumers</li>
+<li>(f event-stream) -> This is just a function over the event stream generated</li>
+</ul>
+</li>
+</ul>
+<b>Consequences</b>
+<div>
+<ul>
+<li>For:
+<ul>
+<li>debugging</li>
+<li>auditing</li>
+<li>metrics</li>
+<li>analytics</li>
+<li>alerting</li>
+</ul>
+</li>
+</ul>
+<b>In Use</b></div>
+<div>
+<ul>
+<li>This has been implemented at Heroku</li>
+<li>Makes it easy to generate dashboards that aggregate across multiple services</li>
+<li>These update in real time based on the event data</li>
+<li>Implementation - heroku/pulse - <a href="https://github.com/heroku/pulse">https://github.com/heroku/pulse</a>:
+<ul>
+<li>Hosts emit events</li>
+<li>Event stream split and distributed to many receivers which execute statistical fragments</li>
+<li>Resultant data sent to a merger</li>
+<li>Merger emits statistics snapshots to the web clients</li>
+</ul>
+</li>
+</ul>
+<b>Going Forward</b></div>
+<ul>
+<li>maps + seqs : Clojure</li>
+<li>events : ?</li>
+<li>Events span process boundaries</li>
+<li>What is the killer app for events?
+<ul>
+<li>pervasive unified event collection</li>
+<li>event processing service -> place for Clojure to shine?
+<ul>
+<li>esper </li>
+<li>hadoop </li>
+<li>cascading </li>
+<li>cascalog </li>
+<li>storm </li>
+<li>conduit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<b>Questions</b>
+<ul>
+<li>How do you handle errors within the event processing system itself?
+<ul>
+<li>Since these are mission critical logs it is ok to discard some if there are errors</li>
+</ul>
+</li>
+<li>This has focussed on events in the abstract sense, what about loading logs out of text files?
+<ul>
+<li>For the legacy systems inside Heroku, we load a log line and immediately transform it into an event to continue down the event stream pipeline</li>
+</ul>
+</li>
+<li>Do you distribute using TCP or UDP? How do you handle zero consumers
+<ul>
+<li>TCP, the aggregator is able to handle he case of zero consumers</li>
+</ul>
+</li>
+<li>The aggregator seems a lot like a generic message queue - have you considered using one?
+<ul>
+<li>Logbus and Pulse are both open sourced. We've not considered a message queue thus far.</li>
+</ul>
+</li>
+<li>How do you distribute code to the various nodes in the logging network?</li>
+<li>Do you wish you could send dates as something other than string? (Rich Hickey)
+<ul>
+<li>Not sure of an implementation but yes it is a problem.</li>
+</ul>
+</li>
+</ul>
+</body></html>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day1"/><meta name="created" content="2011-11-10 16:42:33 -0500"/><meta name="updated" content="2011-11-11 08:55:30 -0500"/><title>"Ousterhout's Dichotomy Isn't (Part 2 of the Simplicity/Power/Focus Series)", Stuart Halloway</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<b>Simplicity, Power, Focus</b>
+<ul>
+<li>Last year, Simplicity</li>
+<li>This year, Power</li>
+<li>Next year?</li>
+</ul>
+<b>Power</b>
+<ul>
+<li>Definition: to be able</li>
+<li>Would be nice to give context to that</li>
+<li>What about physics?
+<ul>
+<li>P = IV</li>
+<li>P = dW/dt
+<ul>
+<li>the amount of work you can get done over the amount of time you spend</li>
+<li>work per unit time</li>
+<li>work has a direction, towards something thus not towards everything else</li>
+<li>work smarter not harder</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>What about computer scientists?
+<ul>
+<li>expressive power
+<ol>
+<li>automata power
+<ul>
+<li>finite automata</li>
+<li>pushdown automata</li>
+<li>linear bounded automata</li>
+<li>Turing machine</li>
+<li>Turing oracle</li>
+</ul>
+</li>
+<li>moving down this list you become more powerful in terms of things you can express</li>
+<li>functional power
+<ul>
+<li>pure untyped lambda calculus</li>
+<li>lambda calculus with constraints</li>
+<li>...</li>
+</ul>
+</li>
+<li>logic power
+<ul>
+<li>zeroth order logic</li>
+<li>first order logic</li>
+<li>higher order logic</li>
+<li>datalog
+<ul>
+<li>with negation</li>
+</ul>
+</li>
+<li>prolog</li>
+</ul>
+</li>
+<li>model power
+<ul>
+<li>declarative languagues</li>
+<li>+ dataflow variables</li>
+<li>+ laziness</li>
+<li>+ cells</li>
+</ul>
+</li>
+<li>poetry power
+<ul>
+<li>sonnet</li>
+<li>haiku</li>
+<li>rhymed couplets</li>
+<li>blank verse</li>
+<li>free verse</li>
+</ul>
+</li>
+<li>music power
+<ul>
+<li>the trombone is strictly more powerful than the piano
+<ul>
+<li>free to play between tones</li>
+</ul>
+</li>
+<li>guitar more powerful than trombone</li>
+<li>piano more powerful than guitar</li>
+<li>huh?</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>rock/paper/scissors/lizard/spock!?</li>
+</ul>
+</li>
+<li>Expressiveness vs. work done per unit time</li>
+</ul>
+<b>How do we categorise power?</b><br/>
+<ol>
+<li>Whose time?
+<ul>
+<li>Powerful means different things to different people</li>
+<li>A machine manages power to accomplish a task</li>
+</ul>
+</li>
+<li>...
+<ul>
+<li>Things my stakeholders never ask for:
+<ul>
+<li>Turing completeness</li>
+<li>Decidable type system</li>
+<li>Laziness</li>
+<li>Negation</li>
+<li>...</li>
+</ul>
+</li>
+<li>"Writing free verse is like playing tennis with the net down"</li>
+<li>"When publishing on the Web, you should usually choose the least powerful or most easily analysed language variant that's ..."</li>
+</ul>
+</li>
+<li>Composition
+<ul>
+<li>x considered harmful
+<ul>
+<li>goto</li>
+<li>global variables</li>
+<li>mutability</li>
+<li>dynamic scope</li>
+<li>explicit memory management</li>
+</ul>
+</li>
+<li>feeling of power comes from combining and constraining expressive powers</li>
+</ul>
+</li>
+</ol>
+<b>Osterhout's Dichotomy</b>
+<ul>
+<li>Overloaded distinction
+<ul>
+<li>static vs. dynamic</li>
+<li>complex data structures vs. limited data structures</li>
+<li>compiled vs. interpreted</li>
+<li>independent programs vs. glue code</li>
+<li>C, C++, Java vs. Tcl, Ruby, Python</li>
+</ul>
+</li>
+</ul>
+<b>Revenge of the Nerds</b>
+<ul>
+<li>Most languages:
+<ul>
+<li>Have: 
+<ul>
+<li>conditionals</li>
+<li>function type</li>
+<li>recursion</li>
+<li>dynamic typing</li>
+<li>garbage collection</li>
+<li>expressions</li>
+<li>symbol type</li>
+</ul>
+</li>
+<li>Don't have:
+<ul>
+<li>homoiconicity</li>
+<li>whole language all the time</li>
+<li><i>values</i></li>
+<li><i>identity</i></li>
+<li><i>polymorphism</i></li>
+<li><i>etc.</i></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Lisp / <i>Clojure</i> does have those things.</li>
+</ul>
+<b>Measuring Abstraction Powers</b>
+<ul>
+<li>Concision</li>
+<li>Locality</li>
+<li>Simplicity</li>
+<li>"It's not clear that Paul Graham's list of power concepts works for anything other than selling one startup to Yahoo Stores"<br/></li>
+</ul>
+<b>Revenge of the Glue</b>
+<ul>
+<li>static vs. dynamic</li>
+<li>complex data structures vs. <i>complex data structures</i></li>
+<li>compiled vs. interpreted</li>
+<li>independent programs vs. glue <i>or independent</i></li>
+<li>C, C++, Java vs. Tcl, Ruby, Python, <i>Lisp?</i></li>
+</ul>
+<div><b>Foreign Function Interface</b></div>
+<ul>
+<li>...</li>
+</ul>
+<b>What's not glue?</b>
+<ul>
+<li><i>static</i> vs. dynamic</li>
+<li>complex data structures vs. complex data structures</li>
+<li><i>compiled</i> vs. interpreted</li>
+<li>independent programs vs. glue or independent</li>
+<li>C, C++, Java vs. Tcl, Ruby, Python, Lisp?</li>
+</ul>
+<div><b>Platform Power</b></div>
+<ul>
+<li>Need:
+<ul>
+<li>classes</li>
+<li>interfaces</li>
+<li>primitives</li>
+<li>byte codes</li>
+<li>core types</li>
+<li>library types ...</li>
+</ul>
+</li>
+<li>Don't need:
+<ul>
+<li>static typing</li>
+<li>compilation model</li>
+</ul>
+</li>
+<li>Clojure aims to provide full platform power</li>
+<li>"I Didn't right clojure to replace Ruby in my day job, I wrote it to replace <i>Java</i> in my day job" - Rich</li>
+</ul>
+<b>Platform Power Explains</b>
+<div>
+<ul>
+<li>reify/proxy, et al</li>
+<li>1.2 -> protocols, deftype</li>
+<li>1.3 -> numeric changes</li>
+<li>absence of wrappers</li>
+<li>Clojure / ClojureScript differences</li>
+<li>compromises with simplicity</li>
+</ul>
+<b>Numeric Options</b></div>
+<div><b><br/></b></div>
+<div>
+<table border="1" width="100%" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top"><b><br/></b></td>
+<td valign="top"><b>safety</b></td>
+<td valign="top"><b>speed</b></td>
+<td valign="top"><b>type</b></td>
+<td valign="top"><b>precision</b></td>
+</tr>
+<tr>
+<td valign="top"><b>checked</b></td>
+<td valign="top"><font color="#438F2B">safe</font></td>
+<td valign="top"><font color="#438F2B">fast</font></td>
+<td valign="top"><font color="#438F2B">any</font></td>
+<td valign="top"><font color="#FF1813">limited</font></td>
+</tr>
+<tr>
+<td valign="top"><b>promoting</b></td>
+<td valign="top"><font color="#438F2B">safe</font></td>
+<td valign="top"><font color="#FF1813">slow</font></td>
+<td valign="top"><font color="#FF1813">boxed</font></td>
+<td valign="top"><font color="#438F2B">arbitrary</font></td>
+</tr>
+<tr>
+<td valign="top"><b>unchecked</b></td>
+<td valign="top"><font color="#FF1813">unsafe</font></td>
+<td valign="top"><font color="#438F2B">fastest</font></td>
+<td valign="top"><font color="#438F2B">any</font></td>
+<td valign="top"><font color="#FF1813">limited</font></td>
+</tr>
+</tbody>
+</table>
+<br/></div>
+<div><b>Instructive Exceptions</b></div>
+<ul>
+<li>integer byte code operations</li>
+<li>creating interfaces</li>
+<li>implementation inheritance</li>
+</ul>
+<b>Library Power</b>
+<div>
+<ul>
+<li>does library exist?</li>
+<li>can I find the library?</li>
+<li>...</li>
+</ul>
+<b>Can we have a small shot of easy?</b></div>
+<div>
+<ul>
+<li>Error messages Rich? :)</li>
+<li>Life would be easy if:
+<ul>
+<li>...</li>
+</ul>
+</li>
+<li>Feeling powerful
+<ul>
+<li>expressive power
+<ul>
+<li>core (red)</li>
+<li>library (green)</li>
+</ul>
+</li>
+<li>platform power (red)</li>
+<li>library power (green)</li>
+<li>ease (green)</li>
+</ul>
+</li>
+<li>Changes to all things in red have to go through Rich</li>
+<li>Changes to all things in green are community driven</li>
+<li>Adding comforts should be paralleliseable
+<ul>
+<li>shouldn't have to go through Rich<br/></li>
+<li>modular contrib now community owned</li>
+</ul>
+</li>
+<li>Comfortable needs to be there in development, slim and speedy for production</li>
+</ul>
+</div>
+</body></html>

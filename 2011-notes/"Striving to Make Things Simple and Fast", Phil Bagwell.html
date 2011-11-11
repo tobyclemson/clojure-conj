@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day1"/><meta name="created" content="2011-11-10 13:47:24 -0500"/><meta name="updated" content="2011-11-11 08:55:36 -0500"/><title>"Striving to Make Things Simple and Fast", Phil Bagwell</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<a href="%22Striving%20to%20Make%20Things%20Simple%20and%20Fast%22,%20Phil%20Bagwell.resources/RMTrees.pdf">RMTrees.pdf</a>
+<div><b><br/></b></div>
+Introduction
+<ul>
+<li>[Asked how many people in the audience had Clojure in production] (not many)</li>
+<li>[Asked how many people wanted to have Clojure in production] (many)</li>
+<li>Engineers tend to view the world as a series of engineering problems</li>
+<li>So, look at the organisation as an engineering problem in terms of convincing managers, colleagues to adopt Clojure</li>
+</ul>
+<b>Parallel Collections</b>
+<ul>
+<li>Automatic multi-threading of comprehensions</li>
+<li>Comprehension is applying a function to a collection</li>
+<li>Simple to change from sequential to parallel</li>
+<li>Split work by number of processors</li>
+<li>Each thread has a work queue that is split exponentially, largest on top of queue</li>
+<li>Granularity balance against scheduling overhead</li>
+<li>On completion threads 'work steal' from othegramr threads</li>
+<li>Easy to program</li>
+<li>Excellent speed ups in multi core systems</li>
+<li>Good load balancing</li>
+<li>Not universal fix to all concurrency problems</li>
+</ul>
+<b>Non Blocking Resizable Concurrent Hash Tries</b>
+<ul>
+<li>Caches, dictionaries, time varying analytics</li>
+<li>Scale well in multi core</li>
+<li>Allow snap shot</li>
+<li>Lock free hash map</li>
+</ul>
+<b>Non Blocking Snapshot</b><br/>
+<ul>
+<li>Baseball problem<br/></li>
+<li>Can take non blocking snapshot of <i>cht</i> in small constant time</li>
+<li>Changes to <i>sn</i> do not change <i>cht</i></li>
+<li><i>...</i></li>
+<li>Example
+<ul>
+<li>People in a room, by the time you have finished counting, people have left and entered</li>
+<li>Solution, take a snapshot, like a photograph, can carry on working without worrying about external changes</li>
+</ul>
+</li>
+</ul>
+<b>Vectors - Today's Problem</b>
+<ul>
+<li>Two vectors, want to concatenate them
+<ul>
+<li>concat(A, B) -> linear time in B</li>
+<li>mid(A, 30, 50) ?</li>
+<li>left(A, 10) ?</li>
+<li>right(A, 50) ?</li>
+<li>concat(right(concat(A, left(B, 10)), 5), B)</li>
+</ul>
+</li>
+<li>And parallel comprehensions
+<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<b>Immutable Vectors</b>
+<ul>
+<li>...</li>
+</ul>
+<b>Vectors</b>
+<div>
+<ul>
+<li>Mutate:
+<ul>
+<li>Update value immutably</li>
+<li>Copy all nodes on path to updated value</li>
+</ul>
+</li>
+</ul>
+...</div>
+<div><br/></div>
+<div><b>Back to Array Concatenation</b></div>
+<div>
+<ul>
+<li>Ropes?
+<ul>
+<li>determine which side of the tree to traverse down based on required index</li>
+<li>unfortunately, tree gets deeper and deeper over consecutive rope operations</li>
+</ul>
+</li>
+<li>B-Trees?
+<ul>
+<li>Few levels like vectors</li>
+<li>Updates, iterations, etc. all good</li>
+<li>Concatenation cheap ~= update</li>
+<li>Simple to balance</li>
+<li>But: Radix index search impossible</li>
+<li>Idea: Add item counts at the level and use ...</li>
+</ul>
+</li>
+<li>B-Trees + Item Counts?
+<ul>
+<li>Better</li>
+<li>Idea: Make all node m or m-1 in size to get near radix search<br/></li>
+<li>...</li>
+</ul>
+</li>
+<li>RRB-Tree Attempt 1
+<ul>
+<li>Index speed constant 60% slower than standard vector</li>
+<li>Low memory overhead (1/m)</li>
+<li>Updates, iterations, etc. all good</li>
+<li>But: Costly to balance</li>
+<li>3-4 RRB Trees
+<ul>
+<li>Follow edges</li>
+<li>..</li>
+</ul>
+</li>
+<li>Concatenation cost > 30x update</li>
+<li>Idea: Constrain overall extra search steps not node size</li>
+</ul>
+</li>
+<li>RRB-Tree Attempt 2
+<ul>
+<li>Principle: look for first less than m-1 and combine with enough following to reduce node count by one</li>
+<li>Index speed 60-70% slower than standard vector</li>
+<li>Memory overhead still good</li>
+<li>Updates, iterations all good</li>
+<li>Concatenation costs 2 to 6x update, very good</li>
+<li>Standard until concat or splits used</li>
+<li>Negligible degradations with many splits of concats</li>
+</ul>
+</li>
+<li>RBB - Tree Left/Right Slice
+<ul>
+<li>Follow slice path</li>
+<li>Rewrite path with left or right removed</li>
+<li>Only rebalance on concatenation</li>
+</ul>
+</li>
+</ul>
+</div>
+</body></html>

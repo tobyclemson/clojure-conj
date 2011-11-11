@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day1"/><meta name="created" content="2011-11-10 08:48:12 -0500"/><meta name="updated" content="2011-11-11 08:55:26 -0500"/><title>"Learning Clojure - Next Steps", Stuart Sierra</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<div><a href="%22Learning%20Clojure%20-%20Next%20Steps%22,%20Stuart%20Sierra.resources/stuart-sierra-clojure-next-steps.pdf">stuart-sierra-clojure-next-steps.pdf</a><b><br/></b></div>
+<div><br/></div>
+<div><b>Already?</b><br/></div>
+<ul>
+<li>4Clojure - clojure exercises</li>
+<li>Books - Programming Clojure, Joy of Clojure, Clojure in Action, </li>
+<li>IRC channel</li>
+<li>StackOverflow</li>
+</ul>
+<b>What Next?</b>
+<div>
+<ul>
+<li><b>Reader and writer</b>
+<ul>
+<li>Writer functions<br/>
+<ul>
+<li>(println ...) - human readable</li>
+<li>(prn ...) - machine readable, when read back, will be equal, 
+<ul>
+<li>*print-readably*<br/></li>
+<li>*print-dup* guarantees this</li>
+<li>*read-eval* whether or not should eval after reading</li>
+</ul>
+</li>
+<li>(print-method ...) - multimethod dispatching on type</li>
+<li>(print-dup ...) - multimethod dispatching on type</li>
+<li>#=() - backdoor into the reader, useful when working with (print-dup ...)</li>
+</ul>
+</li>
+<li>Resources - additional uncompiled files accompanying an artifact
+<ul>
+<li>(io/resource ...) - read text from resource file</li>
+<li>PushbackReader needed by clojures reader</li>
+<li>(read ...)</li>
+<li>Ability to separare read and eval programmatically</li>
+</ul>
+</li>
+<li>Clojure vs. JSON</li>
+<li>Ideas
+<ul>
+<li>Custom readers, different defaults
+<ul>
+<li>Reader macros!</li>
+<li>Reader printer for other formats</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>Interfaces</b>
+<ul>
+<li>(print-tree ...) (custom to Stuart) - prints (inheritance-tree (class x)) nicely</li>
+<li>(assoc ...) - references RT, clojure run time (rassoc ...), in turn references Associative.assoc, implements interfaces</li>
+<li>Custom collections
+<ul>
+<li>May be able to get performance gains by writing primitive specific collections where possible</li>
+<li>Identify hotspots via profiling</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>Raw Concurrency</b>
+<ul>
+<li>Executors
+<ul>
+<li>All clojure functions are callable</li>
+</ul>
+</li>
+<li>AtomicReference - one of the Atomic types
+<ul>
+<li>Clojure's atom based off this</li>
+</ul>
+</li>
+<li>AtomicLong - atomically updateable integer value
+<ul>
+<li>May compile down to machine instructions, therefore more performant</li>
+</ul>
+</li>
+<li>CountDownLatch
+<ul>
+<li>Pause threads and have them wait on something else</li>
+</ul>
+</li>
+<li>More stuff:
+<ul>
+<li>CyclicBarrier</li>
+<li>Semaphore</li>
+<li>Exchanger</li>
+</ul>
+</li>
+<li>Concurrent Collections - thread safe, not governed by single exclusion lock
+<ul>
+<li>e.g., <br/>
+<ul>
+<li>ConcurrentHashMap</li>
+<li>ConcurrentLinkedQueue<br/></li>
+<li>ConcurrentSkipListMap<br/></li>
+<li>ConcurrentSkipListSet<br/></li>
+</ul>
+</li>
+<li>Shared cache?</li>
+</ul>
+</li>
+<li>BlockingQueues - data structures for synchronisation
+<ul>
+<li>SynchronousQueue</li>
+<li>LinkedBlockingQueue</li>
+<li>LinkedBlockingQueue</li>
+<li>PriorityBlockingQueue etc.</li>
+</ul>
+</li>
+<li>Plain old locking
+<ul>
+<li>(locking object) equivalent to synchronised (object) { }</li>
+<li>ReadWriteLock</li>
+<li>ReentrantLock</li>
+</ul>
+</li>
+<li>Volatile 
+<ul>
+<li>New value can't depend on old value - doesn't guarantee anything</li>
+<li>Write from one thread, value immediately visible on every other thread</li>
+<li>Does not guarantee atomicity of update operations</li>
+</ul>
+</li>
+<li>Unsynchonised - no guarantees, the default in Java</li>
+<li>Cljque - new concurrency primitive, notifier, (not ready for adoption!)</li>
+<li>Ideas
+<ul>
+<li>Explore Ref history - performance implications if multiple threads reading and writing same ref</li>
+<li>Partial locks - locking part of a data structure so that it doesn't all block</li>
+<li>Distributed locks / transactions - unsolved problem</li>
+<li>Eventual consistency</li>
+<li>Connect to other transactions systems, databases, Java EE</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>Explore</b>
+<ul>
+<li>clojure.test.generative
+<ul>
+<li>specify inputs to a function</li>
+<li>randomly generate inputs using that spec</li>
+<li>assert general rules about the output - universal properties, invariants</li>
+</ul>
+</li>
+<li>clojure.core.logic
+<ul>
+<li>variant of prolog, </li>
+<li>logic programming - write program as a series of facts and ask questions of whether something is true</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>The JVM and Beyond</b>
+<ul>
+<li>Class loaders
+<ul>
+<li>compile source code into bytecode</li>
+<li>load bytecode into JVM</li>
+<li>control visibility of classes inside the JVM</li>
+</ul>
+</li>
+<li>ASM / bytecode
+<ul>
+<li>Less than 200 op codes in bytecode, many redundant</li>
+<li>Not too tricky to learn</li>
+</ul>
+</li>
+<li>JNI / JNA
+<ul>
+<li>Native access</li>
+<li>JNA easier to use, JNI requires C</li>
+</ul>
+</li>
+<li>JSVC
+<ul>
+<li>Apache project</li>
+<li>Java service container</li>
+<li>Allows Java programs to interoperate properly with UNIX environments
+<ul>
+<li>process management, forking, joining etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>Make Stuff!</b>
+<ul>
+<li>Make libraries not frameworks!</li>
+</ul>
+</li>
+</ul>
+</div>
+</body></html>
