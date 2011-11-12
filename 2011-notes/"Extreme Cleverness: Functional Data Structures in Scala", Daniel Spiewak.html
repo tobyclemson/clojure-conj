@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day3"/><meta name="created" content="2011-11-12 09:50:14 -0500"/><meta name="updated" content="2011-11-12 10:31:43 -0500"/><title>"Extreme Cleverness: Functional Data Structures in Scala", Daniel Spiewak</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<b>Background</b>
+<ul>
+<li>The title says 'Scala' but most of this is equally applicable to any functional language</li>
+</ul>
+<b>Agenda</b><br/>
+<ul>
+<li>Functional data structures</li>
+<li>Implementations
+<ul>
+<li>Sequential
+<ul>
+<li>Preserves insertion order, fast access to head or tail, not to the middle so not so good for random access</li>
+</ul>
+</li>
+<li>Associative
+<ul>
+<li>Don't preserve insertion order but provide good random access</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Modern computer architecture
+<ul>
+<li>How this affects the design of our data structures</li>
+</ul>
+</li>
+</ul>
+<b>Functional Data Structure</b>
+<ul>
+<li>Immutable, immutable, immutable!
+<ul>
+<li>Not that difficult to create, just copy on write</li>
+<li>However this has terrible performance</li>
+</ul>
+</li>
+<li>What we want:
+<ul>
+<li>Comparable asymptotic performance</li>
+<li>Non-degraded versions
+<ul>
+<li>full persistence</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<b>Sequential Data Structures</b>
+<div><b><br/></b></div>
+<div><b>Singly Linked List</b></div>
+<ul>
+<li>Compexity:
+<ul>
+<li>first : O(1)</li>
+<li>everything else : O(n)</li>
+</ul>
+</li>
+<li>Anatomy:
+<ul>
+<li>a list is either:
+<ul>
+<li>a "cons" cell with a value and a tail</li>
+<li>an empty list, called nil</li>
+</ul>
+</li>
+<li>these are the only cases</li>
+</ul>
+</li>
+<li>Structural sharing
+<ul>
+<li>val foo = a :: b :: c :: d :: nil</li>
+<li>val bar = h ... b</li>
+<li>val baz = m :: n ... a</li>
+<li>val raz = q :: r ... n</li>
+<li>find that bar shares some of foos structure etc.</li>
+</ul>
+</li>
+<li>The goal is to minimise the amount of copying and maximise the amount of sharing</li>
+<li>Once achieved, we obtain powerful immutable data structures with good performance characterstics</li>
+</ul>
+<b>Motivation</b>
+<ul>
+<li>We want a functional queue</li>
+<li>Linked list is obvious
+<ul>
+<li><i>prepend</i> and <i>last</i> are opposing</li>
+<li>one will be O(1), the other O(n)</li>
+</ul>
+</li>
+<li>Can we have our cake and eat it too?</li>
+<li>Bankers queue attempts to do this</li>
+</ul>
+<b>Bankers Queue</b>
+<ul>
+<li>Complexity:
+<ul>
+<li>append, last, prepend : O(1)</li>
+<li>others : O(n)</li>
+</ul>
+</li>
+<li>Anatomy
+<ul>
+<li>Naive persistent queue</li>
+<li>Two lazy singly-linked lists
+<ul>
+<li>front list (for dequeue)</li>
+<li>rear list (for enqueue)</li>
+</ul>
+</li>
+<li>Periodically reverse rear into the front</li>
+<li>Lazy amortisation</li>
+</ul>
+</li>
+</ul>
+<b>Amortisation</b><br/>
+<ul>
+<li><i>Most</i> operations are legitimately fast
+<ul>
+<li>Few operations are very slow</li>
+</ul>
+</li>
+<li>Laziness distributes the work</li>
+<li>Net result: constant factor degradation
+<ul>
+<li>Translation: the net average is fast</li>
+</ul>
+</li>
+<li>Also works without laziness!</li>
+</ul>
+<b>2-3 Finger Tree</b>
+<ul>
+<li>Complexity:
+<ul>
+<li>append, first, last, prepend : O(1)</li>
+<li>insert, nth : O(log n)</li>
+<li>rest : O(n)</li>
+</ul>
+</li>
+<li>Anatomy:
+<ul>
+<li>Ideal persistent deque</li>
+<li>Digits of length 1, 2, 3 or 4
+<ul>
+<li>Head and tail</li>
+</ul>
+</li>
+<li>Branching factor of 2 or 3</li>
+<li>Recursive tree body
+<ul>
+<li>The need to decend deep into the tree reduces exponentially so we have amortised time</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Unfortunately this is really slow in practice</li>
+</ul>
+<b>Associative Data Structures</b>
+<div><b><br/></b></div>
+<div><b>The Red-Black Tree</b></div>
+<ul>
+<li>Complexity:
+<ul>
+<li>get, insert, update: O(log n)</li>
+<li>intersect, union: O(n)</li>
+</ul>
+</li>
+<li>Anatomy:
+<ul>
+<li>Balanced binary search tree</li>
+<li>Invariants
+<ul>
+<li>Every path from root to a leaf contains the same number of black nodes</li>
+<li>No red node has a red parent</li>
+</ul>
+</li>
+<li>Need to rebalance after any "update"</li>
+</ul>
+</li>
+</ul>
+<b>A Little of Both?</b>
+<div><b><br/></b></div>
+<div><b>Bitmapped Vector Trie<br/></b></div>
+<ul>
+<li>Known in Clojure as...the vector</li>
+<li>Complexity:
+<ul>
+<li>append, first, last, nth, update : O(1)</li>
+<li>concat, insert, prepend : O(n)</li>
+<li>almost...
+<ul>
+<li>actually O(log_32 n) </li>
+<li>which is approximately O(1) for any data structure which can fit in memory</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Anatomy
+<ul>
+<li>Start with an array with max length 32
+<ul>
+<li>copy on write</li>
+</ul>
+</li>
+<li>Array of arrays, max length 32
+<ul>
+<li>Array of array of arrays, max length 32
+<ul>
+<li>etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Maximum depth is 7!</li>
+</ul>
+</li>
+<li>The performance is ridiculous! Crazy fast!</li>
+</ul>
+<b>Modern Architectures</b>
+<ul>
+<li>Locality of reference</li>
+<li>Caching
+<ul>
+<li>Bite-sized data chunks</li>
+</ul>
+</li>
+<li>JVM considerations
+<ul>
+<li>Heap locality</li>
+<li>For example
+<ul>
+<li>in theory a linked list should not have good locality at all</li>
+<li>in practice we do get locality because the JVM is smart enough to know you're using a linked list so it preserves locality of entries as much as possible</li>
+</ul>
+</li>
+<li>This is the reason the 2-3 finger tree is NOT fast
+<ul>
+<li>JVM can't help you as you have pointers to pointers to pointers ...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<b>References</b>
+<ul>
+<li>Okasaki: "Purely Functional Dta Structures"</li>
+<li>Okasaki: "Red-Black Trees in a Functional Setting"</li>
+<li>Hinz &amp; Peterson: "Finger Trees: A Simple General Purpose Data Structure"</li>
+</ul>
+<div><b>Code</b></div>
+<ul>
+<li><a href="http://github.com/djspiewak/extreme-cleverness">http://github.com/djspiewak/extreme-cleverness</a><br/></li>
+</ul>
+</body></html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 3.0.2 (195746)"/><meta name="keywords" content="clojure, conference, day3"/><meta name="created" content="2011-11-12 08:55:57 -0500"/><meta name="updated" content="2011-11-12 09:31:14 -0500"/><title>"Cascalog", Nathan Marz</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<div><a href="https://github.com/nathanmarz/cascalog-conj">https://github.com/nathanmarz/cascalog-conj</a><br/></div>
+<div style="font-weight: bold;"><b><br/></b></div>
+<b>Let's do some analysis</b>
+<ul>
+<li>On the tweets during the tunisia uprising</li>
+</ul>
+<b>What is Cascalog?</b>
+<ul>
+<li>Abstraction on top of Map / Reduce</li>
+<li>...</li>
+</ul>
+<b>What is Hadoop MapReduce?</b>
+<ul>
+<li>High latency batch processing</li>
+<li>Massive scale (petabytes)
+<ul>
+<li>Can scale horizontally across as many nodes as you need</li>
+</ul>
+</li>
+<li>Fault-tolerant</li>
+</ul>
+<b>Why Cascalog?</b>
+<ul>
+<li>Hadoop MapReduce can become quite unwieldy as your logic requirements grow<br/></li>
+<li>Cascalog provides help with
+<ul>
+<li>Abstraction</li>
+<li>Composition</li>
+</ul>
+</li>
+</ul>
+<b>Cascalog Basics</b>
+<ul>
+<li>The 'age' dataset
+<ul>
+<li>first field name</li>
+<li>second field age</li>
+</ul>
+</li>
+<li>Query
+<ul>
+<li>(?&lt;- (stdout) [?person] (age ?person ?age) (&lt; ?age 30))</li>
+<li>(?&lt;- ...) define and execute query</li>
+<li>(stdout) where to put the results</li>
+<li>[?person] output variables</li>
+<li>rest - predicates constraining the output variables</li>
+</ul>
+</li>
+</ul>
+<b>Predicates</b>
+<ul>
+<li>Example:
+<ul>
+<li>(* 2 ?x :> ?z)</li>
+<li>...</li>
+<li>?x input fields</li>
+<li>?z output fields</li>
+<li>...</li>
+</ul>
+</li>
+<li>It's wrong to think of predicates as functions</li>
+<li>Instead they define constraints on fields</li>
+<li>Four kinds:
+<ul>
+<li>functions
+<ul>
+<li>operate on a single tuple</li>
+</ul>
+</li>
+<li>filters
+<ul>
+<li>define constraint on set of input e.g., >, &lt;</li>
+</ul>
+</li>
+<li>aggregators
+<ul>
+<li>operates on multiple tuples, e.g., counting or summing</li>
+</ul>
+</li>
+<li>generators
+<ul>
+<li>finite sources of tuples</li>
+<li>e.g.,
+<ul>
+<li>vector</li>
+<li>3 Gb dataset</li>
+<li>database table</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<b>Join Example</b>
+<ul>
+<li>(def follows [["alice" "david"] ["alice" "bob"] ["alice" "emily"] ["bob" "david"] ...)</li>
+<li>...</li>
+<li>Joins are implicit</li>
+</ul>
+<b>Demo</b>
+<div><b><br/></b></div>
+<div><b>Data Model</b></div>
+<ul>
+<li>Stored as data on nodes or edges between nodes
+<ul>
+<li>there are two types of node
+<ul>
+<li>reactors are the cause of reactions</li>
+<li>reactions are events representing something that has happened</li>
+</ul>
+</li>
+<li>nodes can have meta data called properties</li>
+</ul>
+</li>
+</ul>
+<b>Composability</b>
+<ul>
+<li>(?&lt;- (stdout) [?avg-age]<br/>
+       (age _ ?age)<br/>
+       ...</li>
+<li>expands into</li>
+<li>...</li>
+<li>The result is a "predicate macro"</li>
+</ul>
+</body></html>
