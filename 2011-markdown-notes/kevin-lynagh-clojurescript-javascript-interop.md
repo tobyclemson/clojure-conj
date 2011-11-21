@@ -75,6 +75,7 @@
       * Referential transparency problems
       * Free unsolicited advice:
          * Tools don't make the artist
+
 ## Questions ##
    * Why D3? (visualisation library)
       * Most other visualisation libraries just give you a menu and you choose from it

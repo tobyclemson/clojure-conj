@@ -7,7 +7,6 @@
    * GClosure: google closure (from closure compiler)
 
 ## ClojureScript Pyramid ##
-   *
 ```
    / data types \
   /   protocols  \
