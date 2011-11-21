@@ -70,11 +70,12 @@
       * nodes can have meta data called properties
 
 ## Composability ##
-   * ~~~
-   (?<- (stdout) [?avg-age]
-     (age _ ?age)
-     ...
-   ~~~
+   * 
+```
+(?<- (stdout) [?avg-age]
+  (age _ ?age)
+  ...
+```
    * expands into
    * ...
    * The result is a "predicate macro"

@@ -8,12 +8,12 @@
 
 ## ClojureScript Pyramid ##
    *
-~~~
+```
    / data types \
   /   protocols  \
  /     macros     \
 /     compiler     \
-~~~
+```
 
 ## Data Types ##
    * `[a b c]` - vector
