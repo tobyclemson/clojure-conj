@@ -1,5 +1,5 @@
 # "Logs as Data", Mark McGranaghan #
-[Slides](../2011-notes/mark-mcgranaghan-logs-as-datamark-mcgranaghan-logs-as-data)
+[Slides](../2011-notes/mark-mcgranaghan-logs-as-data.pdf)
 
 ## Background ##
    * Everything is data!
