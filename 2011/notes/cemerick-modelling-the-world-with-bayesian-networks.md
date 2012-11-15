@@ -1,5 +1,5 @@
 # "Modelling the World Probabilistically Using Bayesian Networks in Clojure", Chas Emerick #
-[Slides](../2011-slides/cemerick-modeling-the-world-with-bayesian-networks.pdf)
+[Slides](../slides/cemerick-modeling-the-world-with-bayesian-networks.pdf)
 
 ## Me ##
    * @cemerick

@@ -1,6 +1,6 @@
 # "Striving to Make Things Simple and Fast", Phil Bagwell #
-[Slides](../2011-slides/phil-bagwell-simple-and-fast.ppt)
-[RM Trees Paper](../2011-misc/RMTrees.pdf)
+[Slides](../slides/phil-bagwell-simple-and-fast.ppt)
+[RM Trees Paper](../misc/RMTrees.pdf)
 
 ## Introduction ##
    * [Asked how many people in the audience had Clojure in production] (not many)

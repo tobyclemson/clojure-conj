@@ -1,5 +1,5 @@
 # "Extreme Cleverness: Functional Data Structures in Scala", Daniel Spiewak #
-[Slides](../2011-slides/daniel-spiewak-extreme-cleverness.pdf)
+[Slides](../slides/daniel-spiewak-extreme-cleverness.pdf)
 [Code](http://github.com/djspiewak/extreme-cleverness)
 
 ## Background ##

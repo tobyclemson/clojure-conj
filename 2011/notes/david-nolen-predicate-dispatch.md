@@ -1,5 +1,5 @@
 # "Predicate Dispatch", David Nolen #
-[Slides](../2011-slides/david-nolen-predicate-dispatch.pdf)
+[Slides](../slides/david-nolen-predicate-dispatch.pdf)
 
 ## Background ##
    * There was an email a couple of years ago saying it would be nice if multimethods worked in a slightly different way

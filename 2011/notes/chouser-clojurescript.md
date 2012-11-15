@@ -1,5 +1,5 @@
 # "ClojureScript: Under the Hood", Chris Houser #
-[Slides](../2011-slides/chouser-clojurescript.svg)
+[Slides](../slides/chouser-clojurescript.svg)
 
 # Terminology #
    * Regular Clojure: plain old Clojure

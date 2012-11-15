@@ -1,5 +1,5 @@
 # "The Macronomicon", Michael Fogus #
-[Slides](../2011-slides/fogus-macronomicon.pdf)
+[Slides](../slides/fogus-macronomicon.pdf)
 
 ## Programs Writing Programs ##
    * Code generation

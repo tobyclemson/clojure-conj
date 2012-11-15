@@ -1,5 +1,5 @@
 # "Hacking the Human Genome Using Clojure and Similarity Search", Arnoldo Jose Muller-Molina #
-[Slides](../2011-slides/arnoldo-muller-hacking-genome.tar.gzarnoldo-muller-hacking-genome.tar.gz)
+[Slides](../slides/arnoldo-muller-hacking-genome.tar.gzarnoldo-muller-hacking-genome.tar.gz)
 
 ## Background ##
    * Working in bio-medicine and stem cell research

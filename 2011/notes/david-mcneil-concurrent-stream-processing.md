@@ -1,5 +1,5 @@
 # "Concurrent Stream Processing", David McNeil #
-[Slides](../2011-slides/david-mcneil-concurrent-stream-processing.pdf)
+[Slides](../slides/david-mcneil-concurrent-stream-processing.pdf)
 
 ## Background ##
    * Been building a database query translation and federation product

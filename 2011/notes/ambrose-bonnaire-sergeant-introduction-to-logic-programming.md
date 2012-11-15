@@ -1,5 +1,5 @@
 # "Introduction to Logic Programming", Ambrose Bonnaire-Sergeant #
-[Slides](../2011-slides/ambrose-bonnaire-sergeant-introduction-to-logic-programming.pdf)
+[Slides](../slides/ambrose-bonnaire-sergeant-introduction-to-logic-programming.pdf)
 
 ## Introduction ##
    * Outline

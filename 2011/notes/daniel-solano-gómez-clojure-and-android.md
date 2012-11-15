@@ -1,5 +1,5 @@
 # "Clojure and Android", Daniel Solano Gómez #
-[Slides](../2011-slides/daniel-solano-gómez-clojure-and-android.pdf)
+[Slides](../slides/daniel-solano-gómez-clojure-and-android.pdf)
 
 ## Overview ##
    * Android and the Dalvik VM

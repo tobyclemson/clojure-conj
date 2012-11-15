@@ -1,5 +1,5 @@
 # "Notes on the Synthesis of Music", Samuel Aaron #
-[Slides](../2011-slides/samaaron-overtone.pdf)
+[Slides](../slides/samaaron-overtone.pdf)
 
 ## Background ##
    * Play on words from "Notes on the Synthesis of Form", Christopher Alexandra

@@ -1,5 +1,5 @@
 # "(Neal's) Master Plan for Clojure Enterprise Mindshare Domination", Neal Ford #
-[Slides](../2011-slides/neal-ford-clojure-masterplan.pdf)
+[Slides](../slides/neal-ford-clojure-masterplan.pdf)
 
 ## Background ##
  * Get to talk to lots of CTOs and might be able to bring some perspective and context

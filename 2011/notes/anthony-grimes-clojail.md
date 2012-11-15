@@ -1,5 +1,5 @@
 # "Clojail", Anthony Grimes #
-[Slides](../2011-slides/anthony-grimes-clojail.pdf)
+[Slides](../slides/anthony-grimes-clojail.pdf)
 
 ## Background ##
    * Code is dangerous!

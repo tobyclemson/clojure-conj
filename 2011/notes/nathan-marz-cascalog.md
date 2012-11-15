@@ -1,5 +1,5 @@
 # "Cascalog", Nathan Marz #
-[Slides](../2011-slides/nathan-marz-cascalog.pdf)
+[Slides](../slides/nathan-marz-cascalog.pdf)
 [Code](https://github.com/nathanmarz/cascalog-conj)
 
 ## Let's do some analysis ##

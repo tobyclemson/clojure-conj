@@ -1,5 +1,5 @@
 # "From Linear To Incremental", Christophe Grand #
-[Slides](../2011-slides/christophe-grand-from-linear-to-incremental.pdf)
+[Slides](../slides/christophe-grand-from-linear-to-incremental.pdf)
 
 ## Background ##
    * In the beginning there was frustration

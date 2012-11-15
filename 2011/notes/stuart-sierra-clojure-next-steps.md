@@ -1,5 +1,5 @@
 # "Learning Clojure - Next Steps", Stuart Sierra #
-[Slides](../2011-slides/stuart-sierra-clojure-next-steps.pdf)
+[Slides](../slides/stuart-sierra-clojure-next-steps.pdf)
 
 ## Already? ##
    * 4Clojure - clojure exercises

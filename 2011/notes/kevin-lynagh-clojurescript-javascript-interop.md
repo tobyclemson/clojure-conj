@@ -1,6 +1,6 @@
 # "Extending JavaScript Libraries from ClojureScript", Kevin Lynagh #
-[Slides](../2011-slides/kevin-lynagh-clojurescript-javascript-interop.pdf)
-[Handout](../2011-slides/kevin-lynagh-clojurescript-javascript-interop-handout.pdf)
+[Slides](../slides/kevin-lynagh-clojurescript-javascript-interop.pdf)
+[Handout](../slides/kevin-lynagh-clojurescript-javascript-interop-handout.pdf)
 
 ## Background ##
    * Found that:
