@@ -48,7 +48,7 @@
 
 ## So what about LightTable ##
 * Written in ClojureScript almost completely
-* Using node-webkit [on GitHub](github link)
+* Using [node-webkit](https://github.com/rogerwang/node-webkit)
   * Embeds node.js inside Chromium
 * LightTable uses Component Entity System under the covers
 * ...

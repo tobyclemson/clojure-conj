@@ -1,4 +1,4 @@
-## "Typed C"
+## "Typed Clojure"
 
 ## Verifying Clojure code ##
 * Popular program verification techniques in Clojure:
