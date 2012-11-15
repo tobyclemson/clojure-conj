@@ -1,5 +1,5 @@
 # "LightTable", Chris Granger #
-[Slides](../slides/...)}
+[Slides](../slides/)
 
 ## Background ##
 * Recently entered Node.JS Knockout
