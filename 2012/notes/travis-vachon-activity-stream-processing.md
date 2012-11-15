@@ -118,4 +118,4 @@ book
     * Laziness will bite you at some point, especially when working
       with stateful DBs
     * ...
-      
+

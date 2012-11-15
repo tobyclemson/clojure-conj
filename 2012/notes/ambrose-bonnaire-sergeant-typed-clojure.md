@@ -1,4 +1,4 @@
-## "Typed Clojure"
+## "Typed Clojure", Ambrose Bonnaire Sergeant ##
 
 ## Verifying Clojure code ##
 * Popular program verification techniques in Clojure:
