@@ -1,4 +1,4 @@
-# "MiniKanren", Byrd and Friedman #
+# "MiniKanren", Will Byrd and Dan Friedman #
 
 ## The Language ##
 * `(symbolo x)`: if I ever get a value, it'll be a symbol
